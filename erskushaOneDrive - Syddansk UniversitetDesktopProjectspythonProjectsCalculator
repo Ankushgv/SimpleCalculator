@@ -1,0 +1,59 @@
+[1mdiff --git a/main.py b/main.py[m
+[1mindex 84c9cca..f008db9 100644[m
+[1m--- a/main.py[m
+[1m+++ b/main.py[m
+[36m@@ -46,10 +46,15 @@[m [mclass MainWindow(QMainWindow):[m
+         self.secondRow = QHBoxLayout()[m
+         [m
+         self.number6 = QPushButton("6")[m
+[32m+[m[32m        self.number6.clicked.connect(self.clickAction)[m
+         self.number7 = QPushButton("7")[m
+[32m+[m[32m        self.number7.clicked.connect(self.clickAction)[m
+         self.number8 = QPushButton("8")[m
+[32m+[m[32m        self.number8.clicked.connect(self.clickAction)[m
+         self.number9 = QPushButton("9")[m
+[32m+[m[32m        self.number9.clicked.connect(self.clickAction)[m
+         self.number0 = QPushButton("0")[m
+[32m+[m[32m        self.number0.clicked.connect(self.clickAction)[m
+ [m
+         self.secondRow.addWidget(self.number6)[m
+         self.secondRow.addWidget(self.number7)[m
+[36m@@ -62,10 +67,15 @@[m [mclass MainWindow(QMainWindow):[m
+         self.thirdRow = QHBoxLayout()[m
+         [m
+         self.numberDecimal = QPushButton(".")[m
+[32m+[m[32m        self.numberDecimal.clicked.connect(self.clickAction)[m
+         self.numberPlus = QPushButton("+")[m
+[32m+[m[32m        self.numberPlus.clicked.connect(self.clickAction)[m
+         self.numberMinus = QPushButton("-")[m
+[32m+[m[32m        self.numberMinus.clicked.connect(self.clickAction)[m
+         self.numberMultiply = QPushButton("*")[m
+[32m+[m[32m        self.numberMultiply.clicked.connect(self.clickAction)[m
+         self.numberDevide = QPushButton("/")[m
+[32m+[m[32m        self.numberDevide.clicked.connect(self.clickAction)[m
+ [m
+         self.thirdRow.addWidget(self.numberDecimal)[m
+         self.thirdRow.addWidget(self.numberPlus)[m
+[36m@@ -80,10 +90,20 @@[m [mclass MainWindow(QMainWindow):[m
+ [m
+         self.setCentralWidget(self.container)[m
+ [m
+[32m+[m[32m        self.operators = ["+", "-", "*", "/"][m
+[32m+[m[32m        self.value = [][m
+[32m+[m[41m        [m
+     def clickAction(self):[m
+[31m-        sender = self.sender()[m
+[31m-        self.inputField.setText(sender.text())[m
+         [m
+[32m+[m[32m        sender = self.sender()[m
+[32m+[m[32m        sender = sender.text()[m
+[32m+[m[32m        if int(sender) in range(0, 10):[m
+[32m+[m[32m            print("True")[m
+[32m+[m[32m            self.value.append(len(sender) + 1)[m
+[32m+[m[32m            self.inputField.setText(str(self.value))[m
+[32m+[m
+[32m+[m[32m        if sender in self.operators:[m
+[32m+[m[32m            print("True")[m
+ [m
+     def clearEntry(self):[m
+         self.inputField.setText("0")[m
