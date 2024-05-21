@@ -46,10 +46,15 @@ class MainWindow(QMainWindow):
         self.secondRow = QHBoxLayout()
         
         self.number6 = QPushButton("6")
+        self.number6.clicked.connect(self.clickAction)
         self.number7 = QPushButton("7")
+        self.number7.clicked.connect(self.clickAction)
         self.number8 = QPushButton("8")
+        self.number8.clicked.connect(self.clickAction)
         self.number9 = QPushButton("9")
+        self.number9.clicked.connect(self.clickAction)
         self.number0 = QPushButton("0")
+        self.number0.clicked.connect(self.clickAction)
 
         self.secondRow.addWidget(self.number6)
         self.secondRow.addWidget(self.number7)
@@ -62,10 +67,15 @@ class MainWindow(QMainWindow):
         self.thirdRow = QHBoxLayout()
         
         self.numberDecimal = QPushButton(".")
+        self.numberDecimal.clicked.connect(self.clickAction)
         self.numberPlus = QPushButton("+")
+        self.numberPlus.clicked.connect(self.clickAction)
         self.numberMinus = QPushButton("-")
+        self.numberMinus.clicked.connect(self.clickAction)
         self.numberMultiply = QPushButton("*")
+        self.numberMultiply.clicked.connect(self.clickAction)
         self.numberDevide = QPushButton("/")
+        self.numberDevide.clicked.connect(self.clickAction)
 
         self.thirdRow.addWidget(self.numberDecimal)
         self.thirdRow.addWidget(self.numberPlus)
@@ -80,10 +90,20 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.container)
 
-    def clickAction(self):
-        sender = self.sender()
-        self.inputField.setText(sender.text())
+        self.operators = ["+", "-", "*", "/"]
+        self.value = []
         
+    def clickAction(self):
+        
+        sender = self.sender()
+        sender = sender.text()
+        if int(sender) in range(0, 10):
+            print("True")
+            self.value.append(len(sender) + 1)
+            self.inputField.setText(str(self.value))
+
+        if sender in self.operators:
+            print("True")
 
     def clearEntry(self):
         self.inputField.setText("0")
