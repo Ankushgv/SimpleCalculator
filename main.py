@@ -1,6 +1,9 @@
+import decimal
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 import sys
+
+from numpy import number
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -90,23 +93,35 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.container)
 
-        self.operators = ["+", "-", "*", "/"]
+        self.operators = ["+", "-", "*", "/", "."]
         self.value = []
+        self.number1 = 0
+        self.number2 = 0
+        self.operator = ""
+        self.decimalPointAdded = False
         
     def clickAction(self):
         
         sender = self.sender()
         sender = sender.text()
-        if int(sender) in range(0, 10):
-            print("True")
-            self.value.append(len(sender) + 1)
-            self.inputField.setText(str(self.value))
 
         if sender in self.operators:
-            print("True")
+            
+            if sender == "." and not self.decimalPointAdded:
+                self.value.append(sender)
+                self.decimalPointAdded = True
+        try:
+            if int(sender) in range(0, 10):
+                self.value.append(sender)
+                self.number1 = "".join(self.value)
+                self.inputField.setText(self.number1)
+        except ValueError:
+            pass     
 
     def clearEntry(self):
         self.inputField.setText("0")
+        self.value.clear()
+        self.decimalPointAdded = False
 
 
 if __name__ == "__main__":
