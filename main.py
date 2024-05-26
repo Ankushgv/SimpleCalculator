@@ -17,13 +17,28 @@ class MainWindow(QMainWindow):
         self.inputField.setValidator(QIntValidator())
 
         # self.inputField  ## to accept only numbers and signs
+        self.zeroRow = QHBoxLayout()
         self.inputField.textChanged.connect(self.displayValue.setText)
         self.clearButton = QPushButton("Clear")
         self.clearButton.clicked.connect(self.clearEntry)
 
+        self.equals = QPushButton("=")
+        self.equals.clicked.connect(self.clickAction)
+
+        self.openBracket = QPushButton("(")
+        self.openBracket.clicked.connect(self.clickAction)
+
+        self.closeBracket = QPushButton(")")
+        self.closeBracket.clicked.connect(self.clickAction)
+
         self.displayScreen.addWidget(self.displayValue)
         self.displayScreen.addWidget(self.inputField)
-        self.displayScreen.addWidget(self.clearButton)
+        
+        self.zeroRow.addWidget(self.clearButton)
+        self.zeroRow.addWidget(self.equals)
+        self.zeroRow.addWidget(self.openBracket)
+        self.zeroRow.addWidget(self.closeBracket)
+        self.displayScreen.addLayout(self.zeroRow)
 
         self.firstRow = QHBoxLayout()
         
@@ -104,12 +119,13 @@ class MainWindow(QMainWindow):
         
         sender = self.sender()
         sender = sender.text()
-
-        if sender in self.operators:
             
-            if sender == "." and not self.decimalPointAdded:
-                self.value.append(sender)
-                self.decimalPointAdded = True
+        if sender == "." and not self.decimalPointAdded:
+            self.value.append(sender)
+            self.decimalPointAdded = True
+        if sender == "(" or sender == ")":
+            self.value.append(sender)
+
         try:
             if int(sender) in range(0, 10):
                 self.value.append(sender)
@@ -122,7 +138,6 @@ class MainWindow(QMainWindow):
         self.inputField.setText("0")
         self.value.clear()
         self.decimalPointAdded = False
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
