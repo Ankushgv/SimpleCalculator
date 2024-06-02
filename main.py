@@ -110,8 +110,8 @@ class MainWindow(QMainWindow):
 
         self.operators = ["+", "-", "*", "/", "."]
         self.value = []
-        self.number1 = 0
-        self.number2 = 0
+        self.firstNumber = 0
+        self.secondNumber = 0
         self.operator = ""
         self.decimalPointAdded = False
         
@@ -119,25 +119,45 @@ class MainWindow(QMainWindow):
         
         sender = self.sender()
         sender = sender.text()
-            
-        if sender == "." and not self.decimalPointAdded:
-            self.value.append(sender)
-            self.decimalPointAdded = True
-        if sender == "(" or sender == ")":
-            self.value.append(sender)
 
         try:
             if int(sender) in range(0, 10):
                 self.value.append(sender)
-                self.number1 = "".join(self.value)
-                self.inputField.setText(self.number1)
+                self.firstNumber = "".join(self.value)
+                self.showValue(self.firstNumber)
+                
         except ValueError:
-            pass     
+            pass
+        
+        try:
+            if int(sender) in self.operators:
+                self.value.append(sender)
+                self.operator = "".join(self.value)
+                
+            
+        except ValueError:
+            pass
+
+        if sender == "." and not self.decimalPointAdded:
+            self.value.append(sender)
+            self.decimalPointAdded = True
+            self.firstNumber = "".join(self.value)
+            self.showValue(self.firstNumber)
+            print(self.value, '==============')
+
+        if sender == "(" or sender == ")":
+            self.value.append(sender)
+            self.firstNumber = "".join(self.value)
+            self.showValue(self.firstNumber)
+            print(self.value, '==============')
 
     def clearEntry(self):
         self.inputField.setText("0")
         self.value.clear()
         self.decimalPointAdded = False
+
+    def showValue(self, v):
+        self.inputField.setText(v)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
