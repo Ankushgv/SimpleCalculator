@@ -10,7 +10,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.setWindowTitle("Calculator")
-        self.displayScreen = QVBoxLayout()
+        self.mainDisplayScreen = QVBoxLayout()
         self.displayValue = QLabel()
         self.displayValue.setText("0")
         self.inputField = QLineEdit()
@@ -31,14 +31,14 @@ class MainWindow(QMainWindow):
         self.closeBracket = QPushButton(")")
         self.closeBracket.clicked.connect(self.clickAction)
 
-        self.displayScreen.addWidget(self.displayValue)
-        self.displayScreen.addWidget(self.inputField)
+        self.mainDisplayScreen.addWidget(self.displayValue)
+        self.mainDisplayScreen.addWidget(self.inputField)
         
         self.zeroRow.addWidget(self.clearButton)
         self.zeroRow.addWidget(self.equals)
         self.zeroRow.addWidget(self.openBracket)
         self.zeroRow.addWidget(self.closeBracket)
-        self.displayScreen.addLayout(self.zeroRow)
+        self.mainDisplayScreen.addLayout(self.zeroRow)
 
         self.firstRow = QHBoxLayout()
         
@@ -59,7 +59,7 @@ class MainWindow(QMainWindow):
         self.firstRow.addWidget(self.number4)
         self.firstRow.addWidget(self.number5)
 
-        self.displayScreen.addLayout(self.firstRow)
+        self.mainDisplayScreen.addLayout(self.firstRow)
 
         self.secondRow = QHBoxLayout()
         
@@ -80,7 +80,7 @@ class MainWindow(QMainWindow):
         self.secondRow.addWidget(self.number9)
         self.secondRow.addWidget(self.number0)
 
-        self.displayScreen.addLayout(self.secondRow)
+        self.mainDisplayScreen.addLayout(self.secondRow)
 
         self.thirdRow = QHBoxLayout()
         
@@ -101,19 +101,19 @@ class MainWindow(QMainWindow):
         self.thirdRow.addWidget(self.numberMultiply)
         self.thirdRow.addWidget(self.numberDevide)
 
-        self.displayScreen.addLayout(self.thirdRow)
+        self.mainDisplayScreen.addLayout(self.thirdRow)
 
         self.container = QWidget()
-        self.container.setLayout(self.displayScreen)
+        self.container.setLayout(self.mainDisplayScreen)
 
         self.setCentralWidget(self.container)
 
-        self.operators = ["+", "-", "*", "/", "."]
-        self.value = []
-        self.firstNumber = 0
-        self.secondNumber = 0
-        self.operator = ""
-        self.decimalPointAdded = False
+        # self.operators = ["+", "-", "*", "/", ".", "="]
+        # self.value = []
+        # self.number_ = 0
+        # self.secondNumber = 0
+        # self.operator = ""
+        # self.decimalPointAdded = False
         
     def clickAction(self):
         
@@ -121,35 +121,39 @@ class MainWindow(QMainWindow):
         sender = sender.text()
 
         try:
-            if int(sender) in range(0, 10):
-                self.value.append(sender)
-                self.firstNumber = "".join(self.value)
-                self.showValue(self.firstNumber)
-                
-        except ValueError:
+            print(sender)
+        except:
             pass
+        # try:
+        #     if int(sender) in range(0, 10):
+        #         self.value.append(sender)
+        #         self.firstNumber = "".join(self.value)
+        #         self.showValue(self.firstNumber)
+                
+        # except ValueError:
+        #     pass
         
-        try:
-            if int(sender) in self.operators:
-                self.value.append(sender)
-                self.operator = "".join(self.value)
+        # try:
+        #     if int(sender) in self.operators:
+        #         self.value.append(sender)
+        #         self.operator = "".join(self.value)
                 
             
-        except ValueError:
-            pass
+        # except ValueError:
+        #     pass
 
-        if sender == "." and not self.decimalPointAdded:
-            self.value.append(sender)
-            self.decimalPointAdded = True
-            self.firstNumber = "".join(self.value)
-            self.showValue(self.firstNumber)
-            print(self.value, '==============')
+        # if sender == "." and not self.decimalPointAdded:
+        #     self.value.append(sender)
+        #     self.decimalPointAdded = True
+        #     self.firstNumber = "".join(self.value)
+        #     self.showValue(self.firstNumber)
+        #     print(self.value, '==============')
 
-        if sender == "(" or sender == ")":
-            self.value.append(sender)
-            self.firstNumber = "".join(self.value)
-            self.showValue(self.firstNumber)
-            print(self.value, '==============')
+        # if sender == "(" or sender == ")":
+        #     self.value.append(sender)
+        #     self.firstNumber = "".join(self.value)
+        #     self.showValue(self.firstNumber)
+        #     print(self.value, '==============')
 
     def clearEntry(self):
         self.inputField.setText("0")
