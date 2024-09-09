@@ -121,7 +121,13 @@ class MainWindow(QMainWindow):
         sender = sender.text()
 
         try:
-            print(sender)
+            for i in range(10):
+                self.variableName = "variable"
+                i = str(i)
+                self.variableName = i+self.variableName
+                print(self.variableName, sender)
+                if sender == "=":
+                    break
         except:
             pass
         # try:
