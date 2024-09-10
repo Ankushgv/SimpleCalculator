@@ -108,8 +108,8 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.container)
 
-        # self.operators = ["+", "-", "*", "/", ".", "="]
-        # self.value = []
+        self.operators = ["+", "-", "*", "/", ".", "="]
+        self.value = []
         # self.number_ = 0
         # self.secondNumber = 0
         # self.operator = ""
@@ -117,17 +117,15 @@ class MainWindow(QMainWindow):
         
     def clickAction(self):
         
-        sender = self.sender()
-        sender = sender.text()
+        sender = self.sender().text()
+        self.value.append(sender)
 
         try:
-            for i in range(10):
-                self.variableName = "variable"
-                i = str(i)
-                self.variableName = i+self.variableName
-                print(self.variableName, sender)
-                if sender == "=":
-                    break
+            value = "".join(self.value)
+            if "." in value:
+                print("present")
+            print(type(value))
+            self.inputField.setText(value)
         except:
             pass
         # try:
