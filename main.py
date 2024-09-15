@@ -108,7 +108,7 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.container)
 
-        self.operators = ["+", "-", "*", "/", ".", "="]
+        self.operators = ["+", "-", "*", "/", ".", "=", "(", ")"]
         self.value = []
         # self.number_ = 0
         # self.secondNumber = 0
@@ -122,11 +122,23 @@ class MainWindow(QMainWindow):
 
         try:
             value = "".join(self.value)
-            if "." in value:
-                print("present")
-            print(type(value))
+            print(value)
+            
+            result = []
+            temp_list = []
+            for i in value:
+                if i in self.operators:
+                    temp_list.append(i)
+                    temp_list = "".join(temp_list)
+                    result.append(temp_list)
+                    temp_list = []
+                else:
+                    temp_list.append(i)
+            result.append(temp_list)
+            print(str(result))
+
             self.inputField.setText(value)
-        except:
+        except ValueError:
             pass
         # try:
         #     if int(sender) in range(0, 10):
