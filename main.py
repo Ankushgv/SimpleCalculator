@@ -113,7 +113,7 @@ class MainWindow(QMainWindow):
         # self.number_ = 0
         # self.secondNumber = 0
         # self.operator = ""
-        # self.decimalPointAdded = False
+        self.decimalPointAdded = False
         
     def clickAction(self):
         
@@ -122,20 +122,23 @@ class MainWindow(QMainWindow):
 
         try:
             value = "".join(self.value)
-            print(value)
             
             result = []
             temp_list = []
             for i in value:
+                if i == "." and not self.decimalPointAdded:
+                    print("added")
+                else:
+                    print("not added")
                 if i in self.operators:
                     temp_list.append(i)
-                    temp_list = "".join(temp_list)
+                    temp_list = "".join(temp_list)[:-1]
                     result.append(temp_list)
-                    temp_list = []
+                    temp_list = [] 
                 else:
                     temp_list.append(i)
             result.append(temp_list)
-            print(str(result))
+            print(result)
 
             self.inputField.setText(value)
         except ValueError:
