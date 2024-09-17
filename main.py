@@ -108,11 +108,8 @@ class MainWindow(QMainWindow):
 
         self.setCentralWidget(self.container)
 
-        self.operators = ["+", "-", "*", "/", ".", "=", "(", ")"]
+        self.operators = ["+", "-", "*", "/", "=", "(", ")"]
         self.value = []
-        # self.number_ = 0
-        # self.secondNumber = 0
-        # self.operator = ""
         self.decimalPointAdded = False
         
     def clickAction(self):
@@ -126,53 +123,23 @@ class MainWindow(QMainWindow):
             result = []
             temp_list = []
             for i in value:
-                if i == "." and not self.decimalPointAdded:
-                    print("added")
-                else:
-                    print("not added")
                 if i in self.operators:
                     temp_list.append(i)
                     temp_list = "".join(temp_list)[:-1]
                     result.append(temp_list)
                     temp_list = [] 
                 else:
-                    temp_list.append(i)
+                    if i in temp_list and i == ".":
+                        continue
+                    else:
+                        temp_list.append(i)
             result.append(temp_list)
             print(result)
 
             self.inputField.setText(value)
         except ValueError:
             pass
-        # try:
-        #     if int(sender) in range(0, 10):
-        #         self.value.append(sender)
-        #         self.firstNumber = "".join(self.value)
-        #         self.showValue(self.firstNumber)
-                
-        # except ValueError:
-        #     pass
         
-        # try:
-        #     if int(sender) in self.operators:
-        #         self.value.append(sender)
-        #         self.operator = "".join(self.value)
-                
-            
-        # except ValueError:
-        #     pass
-
-        # if sender == "." and not self.decimalPointAdded:
-        #     self.value.append(sender)
-        #     self.decimalPointAdded = True
-        #     self.firstNumber = "".join(self.value)
-        #     self.showValue(self.firstNumber)
-        #     print(self.value, '==============')
-
-        # if sender == "(" or sender == ")":
-        #     self.value.append(sender)
-        #     self.firstNumber = "".join(self.value)
-        #     self.showValue(self.firstNumber)
-        #     print(self.value, '==============')
 
     def clearEntry(self):
         self.inputField.setText("0")
