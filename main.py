@@ -124,22 +124,31 @@ class MainWindow(QMainWindow):
             temp_list = []
             for i in value:
                 if i in self.operators:
+                    self.numberDecimal.setEnabled(True)
                     temp_list.append(i)
-                    temp_list = "".join(temp_list)[:-1]
+                    temp_list = "".join(temp_list)
                     result.append(temp_list)
                     temp_list = [] 
                 else:
-                    if i in temp_list and i == ".":
+                    if i == ".":
+                        self.numberDecimal.setDisabled(True)
                         continue
                     else:
                         temp_list.append(i)
             result.append(temp_list)
-            print(result)
+            # print(result)
+
+            if sender == "=":
+                self.doOperation(result)
 
             self.inputField.setText(value)
         except ValueError:
             pass
-        
+    
+    def doOperation(self, result):
+        self.clearEntry()
+        for i in result:
+            print (i)
 
     def clearEntry(self):
         self.inputField.setText("0")
