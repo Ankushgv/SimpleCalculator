@@ -4,6 +4,7 @@ from PyQt5.QtGui import *
 import sys
 
 from numpy import number
+import keyboard
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -22,6 +23,9 @@ class MainWindow(QMainWindow):
         self.clearButton = QPushButton("Clear")
         self.clearButton.clicked.connect(self.clearEntry)
 
+        self.deleteButton = QPushButton("del")
+        self.deleteButton.clicked.connect(self.backspace)
+
         self.equals = QPushButton("=")
         self.equals.clicked.connect(self.clickAction)
 
@@ -35,6 +39,7 @@ class MainWindow(QMainWindow):
         self.mainDisplayScreen.addWidget(self.inputField)
         
         self.zeroRow.addWidget(self.clearButton)
+        self.zeroRow.addWidget(self.deleteButton)
         self.zeroRow.addWidget(self.equals)
         self.zeroRow.addWidget(self.openBracket)
         self.zeroRow.addWidget(self.closeBracket)
@@ -111,6 +116,7 @@ class MainWindow(QMainWindow):
         self.operators = ["+", "-", "*", "/", "=", "(", ")"]
         self.value = []
         self.decimalPointAdded = False
+        self.inputValue = None
         
     def clickAction(self):
         
@@ -118,11 +124,11 @@ class MainWindow(QMainWindow):
         self.value.append(sender)
 
         try:
-            value = "".join(self.value)
+            self.inputValue = "".join(self.value)
             
             result = []
             temp_list = []
-            for i in value:
+            for i in self.inputValue:
                 if i in self.operators:
                     self.numberDecimal.setEnabled(True)
                     temp_list.append(i)
@@ -141,7 +147,7 @@ class MainWindow(QMainWindow):
             if sender == "=":
                 self.doOperation(result)
 
-            self.inputField.setText(value)
+            self.inputField.setText(self.inputValue)
         except ValueError:
             pass
     
@@ -154,6 +160,12 @@ class MainWindow(QMainWindow):
         self.inputField.setText("0")
         self.value.clear()
         self.decimalPointAdded = False
+
+    def backspace(self):
+        print("clicked")
+        self.inputValue = self.inputValue[:-1]
+        self.value = self.value[:-1]
+        self.inputField.setText(self.inputValue)
 
     def showValue(self, v):
         self.inputField.setText(v)
