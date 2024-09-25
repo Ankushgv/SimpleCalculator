@@ -142,7 +142,6 @@ class MainWindow(QMainWindow):
                     else:
                         temp_list.append(i)
             result.append(temp_list)
-            # print(result)
 
             if sender == "=":
                 self.doOperation(result)
@@ -151,10 +150,12 @@ class MainWindow(QMainWindow):
         except ValueError:
             pass
     
-    def doOperation(self, result):
+    def doOperation(self, res):
         self.clearEntry()
-        for i in result:
-            print (i)
+        equation = ''.join(map(str, res))[:-2]
+        # print (type(equation))
+        result = int(equation)
+        print(type(result))
 
     def clearEntry(self):
         self.inputField.setText("0")
