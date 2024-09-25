@@ -136,7 +136,11 @@ class MainWindow(QMainWindow):
                     result.append(temp_list)
                     temp_list = [] 
                 else:
-                    temp_list.append(i)
+                    if i == ".":
+                        self.numberDecimal.setDisabled(True)
+                        temp_list.append(i)
+                    else:
+                        temp_list.append(i)
             result.append(temp_list)
             # print(result)
 
