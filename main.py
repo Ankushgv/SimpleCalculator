@@ -136,21 +136,27 @@ class MainWindow(QMainWindow):
                     result.append(temp_list)
                     temp_list = [] 
                 else:
-                    temp_list.append(i)
+                    if i == ".":
+                        self.numberDecimal.setDisabled(True)
+                        temp_list.append(i)
+                    else:
+                        temp_list.append(i)
             result.append(temp_list)
-            # print(result)
+            self.inputField.setText(self.inputValue)
 
             if sender == "=":
                 self.doOperation(result)
 
-            self.inputField.setText(self.inputValue)
         except ValueError:
             pass
     
-    def doOperation(self, result):
+    def doOperation(self, res):
         self.clearEntry()
-        for i in result:
-            print (i)
+        equation = ''.join(map(str, res))[:-3]
+        result = eval(equation)
+        print(result)
+        self.inputField.setText(str(result))
+        self.displayValue.setText(str(result))
 
     def clearEntry(self):
         self.inputField.setText("0")
@@ -158,7 +164,6 @@ class MainWindow(QMainWindow):
         self.decimalPointAdded = False
 
     def backspace(self):
-        print("clicked")
         self.inputValue = self.inputValue[:-1]
         self.value = self.value[:-1]
         self.inputField.setText(self.inputValue)
