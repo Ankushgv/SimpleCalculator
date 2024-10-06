@@ -171,7 +171,8 @@ class MainWindow(QMainWindow):
         print(result)
         # self.inputField.setText(str(result))
         self.displayValue.setText(str(result))
-
+        # self.value.append(str(self.inputValue))
+        
     def clearEntry(self):
         self.inputField.setText("0")
         self.value.clear()
