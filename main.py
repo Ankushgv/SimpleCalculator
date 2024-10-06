@@ -149,13 +149,15 @@ class MainWindow(QMainWindow):
 
         except ValueError:
             pass
+        except SyntaxError:
+            print("Invalid expression")
     
     def doOperation(self, res):
         self.clearEntry()
         equation = ''.join(map(str, res))[:-3]
         result = eval(equation)
         print(result)
-        self.inputField.setText(str(result))
+        # self.inputField.setText(str(result))
         self.displayValue.setText(str(result))
 
     def clearEntry(self):
@@ -164,10 +166,11 @@ class MainWindow(QMainWindow):
         self.decimalPointAdded = False
 
     def backspace(self):
-        self.inputValue = self.inputValue[:-1]
-        self.value = self.value[:-1]
-        self.inputField.setText(self.inputValue)
-
+        if self.inputValue is not None:
+            self.inputValue = self.inputValue[:-1]
+            self.value.append(str(self.inputValue))
+            self.inputField.setText(self.inputValue)
+        
     def showValue(self, v):
         self.inputField.setText(v)
 
