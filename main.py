@@ -14,10 +14,10 @@ class MainWindow(QMainWindow):
         self.mainDisplayScreen = QVBoxLayout()
         self.displayValue = QLabel()
         self.displayValue.setText("0")
+        self.displayValue.setFont(QFont('Arial', 12))
         self.inputField = QLineEdit()
         self.inputField.setValidator(QIntValidator())
 
-        # self.inputField  ## to accept only numbers and signs
         self.zeroRow = QHBoxLayout()
         self.inputField.textChanged.connect(self.displayValue.setText)
         self.number1 = QPushButton("1")
@@ -169,20 +169,20 @@ class MainWindow(QMainWindow):
         equation = ''.join(map(str, res))[:-3]
         result = eval(equation)
         print(result)
-        # self.inputField.setText(str(result))
         self.displayValue.setText(str(result))
-        # self.value.append(str(self.inputValue))
         
     def clearEntry(self):
         self.inputField.setText("0")
         self.value.clear()
-        self.decimalPointAdded = False
+        self.numberDecimal.setEnabled(True)
 
     def backspace(self):
         if self.inputValue is not None:
             self.inputValue = self.inputValue[:-1]
             self.value = self.value[:-1]
             self.inputField.setText(self.inputValue)
+            if "." not in self.inputValue:
+                self.numberDecimal.setEnabled(True)
         
     def showValue(self, v):
         self.inputField.setText(v)
